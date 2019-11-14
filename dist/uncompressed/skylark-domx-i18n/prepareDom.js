@@ -1,5 +1,5 @@
 define([
-	"skylark-utils-dom/query",
+	"skylark-domx-query",
 	"./i18n",
 	"./translate"
 ],function($,i18n,translate){

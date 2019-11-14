@@ -289,9 +289,10 @@ define([
 		));
 	}
 
-	function load(language, namespace) {
-		return Promise.resolve(jQuery.getJSON(config.relative_path + '/assets/language/' + language + '/' + namespace + '.json?' + config['cache-buster']));
-	}
+	//function load(language, namespace) {
+	//	return Promise.resolve(jQuery.getJSON(config.relative_path + '/assets/language/' + language + '/' + namespace + '.json?' + config['cache-buster']));
+	//}
+
 	var warn = function () { console.warn.apply(console, arguments); };
 
 	var assign = Object.assign || jQuery.extend;
@@ -302,7 +303,7 @@ define([
 	 * @param {string} language - Language code for this translator instance
 	 * @exports translator.Translator
 	 */
-	function Translator(language) {
+	function Translator(language,load) {
 		var self = this;
 
 		if (!language) {
@@ -322,9 +323,10 @@ define([
 
 		self.lang = language;
 		self.translations = {};
+		self.load = load;
 	}
 
-	Translator.prototype.load = load;
+	//Translator.prototype.load = load;
 
 	/**
 	 * Parse the translation instructions into the language of the Translator instance
@@ -642,16 +644,16 @@ define([
 	 * @returns {string}
 	 */
 	Translator.getLanguage = function getLanguage() {
-		var lang;
+		//var lang;
+		//if (typeof window === 'object' && window.config && window.utils) {
+		//	lang = utils.params().lang || config.userLang || config.defaultLang || 'en-GB';
+		//} else {
+		//	var meta = require('./meta');
+		//	lang = meta.config && meta.config.defaultLang ? meta.config.defaultLang : 'en-GB';
+		//}
+		//return lang;
 
-		if (typeof window === 'object' && window.config && window.utils) {
-			lang = utils.params().lang || config.userLang || config.defaultLang || 'en-GB';
-		} else {
-			var meta = require('../../../src/meta');
-			lang = meta.config && meta.config.defaultLang ? meta.config.defaultLang : 'en-GB';
-		}
-
-		return lang;
+		return 'en-GB';
 	};
 
 	/**

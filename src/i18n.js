@@ -1,7 +1,10 @@
 define([
-	"skylark-langx/skylark"
+	"skylark-langx/skylark",
+	"skylark-domx-query",
+	"skylark-domx-data",
+	"skylark-domx-styler"	
 ],function(skylark){
-	return skylark.attach("ui.i18n",{
+	return skylark.attach("domx.i18n",{
 		/**
 		 * Escape translator patterns in text
 		 * @param {string} text

@@ -1,5 +1,5 @@
 /**
- * skylark-ui-i18n - The filer features enhancement for skylark utils.
+ * skylark-domx-i18n - The filer features enhancement for skylark utils.
  * @author Hudaokeji Co.,Ltd
  * @version v0.9.1
  * @link www.skylarkjs.org
@@ -86,10 +86,13 @@
 
 })(function(define,require) {
 
-define('skylark-ui-i18n/i18n',[
-	"skylark-langx/skylark"
+define('skylark-domx-i18n/i18n',[
+	"skylark-langx/skylark",
+	"skylark-domx-query",
+	"skylark-domx-data",
+	"skylark-domx-styler"	
 ],function(skylark){
-	return skylark.attach("ui.i18n",{
+	return skylark.attach("domx.i18n",{
 		/**
 		 * Escape translator patterns in text
 		 * @param {string} text
@@ -123,7 +126,7 @@ define('skylark-ui-i18n/i18n',[
 		}
 	});
 });
-define('skylark-ui-i18n/Translator',[
+define('skylark-domx-i18n/Translator',[
 	"skylark-langx/langx",
 	"./i18n"
 ],function(langx,i18n) {
@@ -414,9 +417,10 @@ define('skylark-ui-i18n/Translator',[
 		));
 	}
 
-	function load(language, namespace) {
-		return Promise.resolve(jQuery.getJSON(config.relative_path + '/assets/language/' + language + '/' + namespace + '.json?' + config['cache-buster']));
-	}
+	//function load(language, namespace) {
+	//	return Promise.resolve(jQuery.getJSON(config.relative_path + '/assets/language/' + language + '/' + namespace + '.json?' + config['cache-buster']));
+	//}
+
 	var warn = function () { console.warn.apply(console, arguments); };
 
 	var assign = Object.assign || jQuery.extend;
@@ -427,7 +431,7 @@ define('skylark-ui-i18n/Translator',[
 	 * @param {string} language - Language code for this translator instance
 	 * @exports translator.Translator
 	 */
-	function Translator(language) {
+	function Translator(language,load) {
 		var self = this;
 
 		if (!language) {
@@ -447,9 +451,10 @@ define('skylark-ui-i18n/Translator',[
 
 		self.lang = language;
 		self.translations = {};
+		self.load = load;
 	}
 
-	Translator.prototype.load = load;
+	//Translator.prototype.load = load;
 
 	/**
 	 * Parse the translation instructions into the language of the Translator instance
@@ -767,16 +772,16 @@ define('skylark-ui-i18n/Translator',[
 	 * @returns {string}
 	 */
 	Translator.getLanguage = function getLanguage() {
-		var lang;
+		//var lang;
+		//if (typeof window === 'object' && window.config && window.utils) {
+		//	lang = utils.params().lang || config.userLang || config.defaultLang || 'en-GB';
+		//} else {
+		//	var meta = require('./meta');
+		//	lang = meta.config && meta.config.defaultLang ? meta.config.defaultLang : 'en-GB';
+		//}
+		//return lang;
 
-		if (typeof window === 'object' && window.config && window.utils) {
-			lang = utils.params().lang || config.userLang || config.defaultLang || 'en-GB';
-		} else {
-			var meta = require('../../../src/meta');
-			lang = meta.config && meta.config.defaultLang ? meta.config.defaultLang : 'en-GB';
-		}
-
-		return lang;
+		return 'en-GB';
 	};
 
 	/**
@@ -852,7 +857,7 @@ define('skylark-ui-i18n/Translator',[
 
 
 });
-define('skylark-ui-i18n/translate',[
+define('skylark-domx-i18n/translate',[
 	"./i18n",
 	"./Translator"
 ],function(i18n,Translator){
@@ -886,8 +891,8 @@ define('skylark-ui-i18n/translate',[
 	return i18n.translate = translate;
 	
 });
-define('skylark-ui-i18n/prepareDom',[
-	"skylark-utils-dom/query",
+define('skylark-domx-i18n/prepareDom',[
+	"skylark-domx-query",
 	"./i18n",
 	"./translate"
 ],function($,i18n,translate){
@@ -902,8 +907,8 @@ define('skylark-ui-i18n/prepareDom',[
 	};
 	
 });
-define('skylark-ui-i18n/addTranslation',[
-	"skylark-utils-dom/query",
+define('skylark-domx-i18n/addTranslation',[
+	"skylark-domx-query",
 	"./i18n",
 	"./Translator"
 ],function($,i18n,Translator){
@@ -918,8 +923,8 @@ define('skylark-ui-i18n/addTranslation',[
 	};
 	
 });
-define('skylark-ui-i18n/getTranslations',[
-	"skylark-utils-dom/query",
+define('skylark-domx-i18n/getTranslations',[
+	"skylark-domx-query",
 	"./i18n",
 	"./Translator"
 ],function($,i18n,Translator){
@@ -933,7 +938,7 @@ define('skylark-ui-i18n/getTranslations',[
 	};
 	
 });
-define('skylark-ui-i18n/main',[
+define('skylark-domx-i18n/main',[
 	"./i18n",
 	"./Translator",
 	"./prepareDom",
@@ -943,8 +948,8 @@ define('skylark-ui-i18n/main',[
 ],function(i18n){
 	return i18n;
 });
-define('skylark-ui-i18n', ['skylark-ui-i18n/main'], function (main) { return main; });
+define('skylark-domx-i18n', ['skylark-domx-i18n/main'], function (main) { return main; });
 
 
 },this);
-//# sourceMappingURL=sourcemaps/skylark-ui-i18n.js.map
+//# sourceMappingURL=sourcemaps/skylark-domx-i18n.js.map
